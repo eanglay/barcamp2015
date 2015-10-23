@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<title>Joystick</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+<link href="css/demo.css" rel="stylesheet" />
+
+<body>
+
+
+    <!--
+    <div style="border:2px solid red;width :300px;height:250px;position:absolute;z-index:999;right:0;top:50%;tranforms:translateY(-50%);" ontouchstart="startFire()" ontouchend="endFire()">
+        <h1 id="t" style="color:white;">FIRE</h1>
+    </div>
+-->
+
+    <div id="t_space" style="border:none;width :50%;position:absolute;z-index:10;left:0;top:0px;background-color:#7b1fa2;">
+    </div>
+    <div id="t_fire" style="border:none;width :50%;position:absolute;z-index:10;right:0;top:0;background-color:#7b1fa2;" ontouchstart="startFire()" ontouchend="endFire()">
+    </div>
+    <h1 style="position:fixed;top:-20px;left:50%;transform:translateX(-50%);-webkit-transform:translateX(-50%);z-index:11;color:#FFF;font-size:40px;" class="score">Score : 0</h1>
+    <p style="position:fixed;top:50px;left:50%;transform:translateX(-50%);-webkit-transform:translateX(-50%);z-index:11;color:#FFF;font-size:30px;border:3px solid #FFF;border-radius: 10px;padding:10px 20px;display:none;" class="button">RESTART</p>
+
+    <script src="js/three.min.js"></script>
+    <script src="js/virtualjoystick.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/socket.io-1.3.7.js"></script>
+
+    <script>
+        // replace with your server url
+        var server_url = "https://barcampchat.herokuapp.com/";
+
+        $("#t_space").css("height", $(document).height());
+        $("#t_fire").css("height", $(document).height());
+
+        var socket;
+
+        function startFire() {
+            socket.emit("send", {
+                type: "game",
+                data: {
+                    dir: "fire"
+                }
+            });
+        }
+
+        function endFire() {
+            socket.emit("send", {
+                type: "game",
+                data: {
+                    dir: "stopfire"
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            $(".button").click(function() {
+                socket.emit("send", {
+                    type: "gameAction",
+                    data: {
+                        action: "restart"
+                    }
+                });
+
+                $(this).hide();
+            });
+        });
+         //Socket
+        socket = io(server_url);
+         // Add a connect listener
+        socket.on('connect', function() {
+            console.log('Connect successfully');
+        });
+
+        socket.on('receive', function(payload) {
+            if (payload.type === "score") {
+                $(".score").text("Score : " + payload.data.score);
+            }
+
+            if (payload.type === "gameActionS") {
+                $(".button").show();
+            }
+        });
+
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        var clock = new THREE.Clock();
+
+        var joystick = new VirtualJoystick({
+            mouseSupport: true,
+            limitStickTravel: true,
+            stickRadius: 50,
+            container: document.getElementById("t_space")
+        });
+
+        joystick.addEventListener('touchStart', function() {
+            console.log('down')
+        })
+         joystick.addEventListener('touchEnd', function() {
+            socket.emit("send", {
+                type: "game",
+                data: {
+                    dir: "idle"
+                }
+            });
+        })
+
+         var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth / 2, window.innerHeight);
+         //document.body.appendChild(renderer.domElement);
+
+
+        var debugText1 = document.getElementById("debug1");
+        var debugText2 = document.getElementById("debug2");
+
+        animate();
+
+        function animate() {
+
+            requestAnimationFrame(animate);
+
+            frameTime = clock.getDelta();
+
+            if (joystick.right()) {
+                socket.emit("send", {
+                    type: "game",
+                    data: {
+                        dir: "right"
+                    }
+                });
+                //                cube.position.x = cube.position.x + 60 * frameTime;
+            }
+            if (joystick.left()) {
+                socket.emit("send", {
+                    type: "game",
+                    data: {
+                        dir: "left"
+                    }
+                });
+            }
+            if (joystick.up()) {
+                //                cube.position.y = cube.position.y + 60 * frameTime;
+            }
+            if (joystick.down()) {
+                //                cube.position.y = cube.position.y - 60 * frameTime;
+            }
+
+            renderer.render(scene, camera);
+
+        }
+    </script>
+</body>
+
+</html>
