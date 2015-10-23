@@ -43,7 +43,7 @@ Goto http://your_server/j.html for access joystick (make your joy is open before
 - [express](http://expressjs.com/ "Express")
 - [socket.io](http://socket.io/ "socket.io")
 - [phaser.io](http://phaser.io/)
-- [Virtual JoyStick](http://phaser.io/)
+- [Virtual JoyStick](https://github.com/jeromeetienne/virtualjoystick.js)
 
 
 ### LICENSE  
