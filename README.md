@@ -3,7 +3,7 @@ This repository incude all the resources that used during the presentation on Ba
 
 Visit my live demo site. :)
 
-http://Joden-Lay.github.io/barcamp2015
+https://Joden-Lay.github.io/barcamp2015
 
 ### Requirements
 - Node.js version >= 4.1.0
