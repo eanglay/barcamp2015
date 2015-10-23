@@ -25,12 +25,13 @@ var server_url = "http://localhost:3000/";
 2. Open Terminal(unix) or cmd(windows) 
 then goto $project_folder/server and type command below to install all dependencies
 ```sh
+cd /project_path/server
 npm install
 ```
 
-3. Now start your node server
+3. Now start your node server (inside same folder as #2)
 ```sh
-node server/server.js
+node server.js
 ```
 
 Goto http://localhost:3000 or your configurad server and enjoy testing :)
