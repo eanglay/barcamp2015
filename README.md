@@ -11,20 +11,28 @@ https://Joden-Lay.github.io/barcamp2015
 
 ### Start Server
 
-In listed files below, replace the url with your server url (by default localhost:3000)
-- server/public/j.html
-- server/public/js/custom.js
-- server/public/chat/js/chat.js
+Assume you have Node.js installed on your computer
 
+1. In listed files below, replace the url with your server url (by default localhost:3000)
+ - server/public/j.html
+ - server/public/js/custom.js
+ - server/public/chat/js/chat.js
 ```js    
 // replace with your server url
 var server_url = "http://localhost:3000/";
 ```
 
-Now start your node server
+2. Open Terminal(unix) or cmd(windows) 
+then goto $project_folder/server and type command below to install all dependencies
+```sh
+npm install
+```
+
+3. Now start your node server
 ```sh
 node server/server.js
 ```
+
 Goto http://localhost:3000 or your configurad server and enjoy testing :)
 
 Goto http://your_server/j.html for access joystick (make your joy is open before goto the game)
