@@ -1,0 +1,80 @@
+@import url(http://fonts.googleapis.com/css?family=Raleway:100,400,600,800);
+@font-face {
+	font-weight: normal;
+	font-style: normal;
+	font-family: 'codropsicons';
+	src: url("../fonts/codropsicons/codropsicons.eot");
+	src: url("../fonts/codropsicons/codropsicons.eot?#iefix") format("embedded-opentype"), url("../fonts/codropsicons/codropsicons.woff") format("woff"), url("../fonts/codropsicons/codropsicons.ttf") format("truetype"), url("../fonts/codropsicons/codropsicons.svg#codropsicons") format("svg");
+}
+
+*,
+*:after,
+*:before {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.cf:before,
+.cf:after {
+	content: '';
+	display: table;
+}
+
+.cf:after {
+	clear: both;
+}
+
+body {
+	background: #46484a;
+	color: #a8a8a8;
+	font-weight: 400;
+	font-size: 1em;
+	font-family: 'Raleway', 'Avenir Next', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #fff;
+	text-decoration: none;
+	outline: none;
+}
+
+a:hover,
+a:focus,
+.codrops-demos a.current-demo {
+	color: #eab1c6;
+	outline: none;
+}
+
+button:focus {
+	outline: none;
+}
+
+.container {
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+}
+
+.content {
+	text-align: left;
+}
+
+.info {
+	text-align: center;
+	padding-top: 2.5em;
+	font-size: 0.85em;
+	font-weight: 600;
+}
+
+
+@media screen and (max-width:50em) {
+	.codrops-header {
+		padding: 3em 10% 4em;
+	}
+}
+
+@media screen and (max-width:40em) {
+	.codrops-header h1 {
+		font-size: 2.8em;
+	}
+}
